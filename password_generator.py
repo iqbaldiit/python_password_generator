@@ -6,8 +6,9 @@ import db_helper as db
 #random.choice(string.ascii_letters)
 
 class Password:
-    def __init__(self, word):        
+    def __init__(self, word,email):        
         self.word = word
+        self.email=email
 
     def generate_password(self): 
         medium=""
@@ -28,9 +29,9 @@ class Password:
             random.shuffle(strong)
             random.shuffle(very_strong)
             
-            dct_password={"Word":self.word,"Medium": "".join(medium),"Strong":"".join(strong),"Very_strong":"".join(very_strong)}
+            dct_password={"email":self.email,"Word":self.word,"Medium": "".join(medium),"Strong":"".join(strong),"Very_strong":"".join(very_strong)}
 
-            #Insert to csv file
+            #Insert & update to csv file
             db.insert_update(dct_password)
             return dct_password
         except:
@@ -42,8 +43,9 @@ class Password:
 
         search_result=[]
         for r in fileData:
-            if uInput in r[0].lower():             
-                search_result.append({"Word":r[0],"Medium": r[1],"Strong":r[2],"Very_strong":r[3]})           
+            if self.email==r[0]: 
+                if uInput in r[1].lower():             
+                    search_result.append({"email":r[0],"Word":r[1],"Medium": r[2],"Strong":r[3],"Very_strong":r[4]})           
         
         search_result=[lst for lst in search_result if lst!=[]]
         search_result="Opps! Not matched, try again" if search_result==[] else search_result

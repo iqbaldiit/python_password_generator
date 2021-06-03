@@ -2,7 +2,7 @@ import csv
 import sys
 
 db_name="db_Password.csv"
-db_fields=['Word',"Medium","Strong","Very_strong"]
+db_fields=['email','Word',"Medium","Strong","Very_strong"]
 
 def insert_update(item):
     try:
